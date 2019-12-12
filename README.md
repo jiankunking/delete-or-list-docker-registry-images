@@ -90,5 +90,6 @@ health:
 ```
 ## registry garbage-collect
 ```
-docker [容器名] garbage-collect /etc/docker/registry/config.yml
+# 进入registry容器
+registry garbage-collect /etc/docker/registry/config.yml
 ```
