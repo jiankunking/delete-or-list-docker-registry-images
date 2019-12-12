@@ -59,3 +59,36 @@ for more detail on garbage collection read here:
 python registry.py --num=5  --host=http://10.138.11.111:5000  --delete
 ```
 
+# 常见问题
+## 删除tag失败，返回405
+修改/etc/docker/registry/config.yml
+
+添加storage:delete:enabled: true
+
+示例如下：
+```
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+    delete:
+        enabled: true
+    cache:
+        blobdescriptor: inmemory
+    filesystem:
+        rootdirectory: /var/lib/registry
+http:
+    addr: :5000
+    headers:
+        X-Content-Type-Options: [nosniff]
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3
+```
+## registry garbage-collect
+```
+docker [容器名] garbage-collect /etc/docker/registry/config.yml
+```
